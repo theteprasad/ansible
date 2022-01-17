@@ -1,0 +1,25 @@
+ 
+---
+    - name:   
+      hosts: all
+      become: yes
+      become_user: root
+ 
+      tasks:
+        - name: copy file 
+          copy: src=/root/lightsail-containers-flask
+                dest=/root     
+        - name: Build Docker image from Dockerfile
+          command: "{{ item }}"
+          with_items:
+            - " docker build -t flask3 /root/lightsail-containers-flask"
+            -  "docker run -d --name cont2 -p 5000:5000 flask3"
+        - name: check docker image  
+          command: docker images
+          register: var1
+        - debug: msg={{ var1.stdout_lines }}
+
+        - name: check docker  container
+          command: docker ps -a
+          register: var2
+        - debug: msg={{ var2.stdout_lines }}  
