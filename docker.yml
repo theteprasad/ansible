@@ -1,4 +1,4 @@
- 
+# script presentate by Nishikant, Ganesh and prasad
 ---
     - name:   
       hosts: all
@@ -7,7 +7,7 @@
  
       tasks:
         - name: copy file 
-          copy: src=/root/lightsail-containers-flask
+          copy: src=/home/prasad1/Desktop/new/lightsail-containers-flask
                 dest=/root     
         - name: Build Docker image from Dockerfile
           command: "{{ item }}"
@@ -23,3 +23,5 @@
           command: docker ps -a
           register: var2
         - debug: msg={{ var2.stdout_lines }}  
+
+#commit made by prasad
